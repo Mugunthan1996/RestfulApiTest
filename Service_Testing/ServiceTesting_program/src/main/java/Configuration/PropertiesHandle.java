@@ -19,16 +19,18 @@ public class PropertiesHandle extends Properties
 	protected String Env;
 	protected String OutputChioce;
 	protected String UserName;
+	protected String Platform;
 
 	static DatabaseOperation ConfigQuery = new DatabaseOperation();
 			
-	    public PropertiesHandle(String Project,String Api, String Env ,String OutputChioce, String UserName) throws ClassNotFoundException, SQLException
+	    public PropertiesHandle(String Project,String Api, String Env ,String OutputChioce, String Platform, String UserName) throws ClassNotFoundException, SQLException
 		{
 			this.Project = Project;
 			this.Api=Api;
 			this.Env=Env;
 			this.OutputChioce=OutputChioce;
 			this.UserName=UserName;
+			this.Platform=Platform;
 			
 			WriteProperty(UserName);
 			
@@ -36,7 +38,7 @@ public class PropertiesHandle extends Properties
 		
 		protected void WriteProperty(String UserName) throws ClassNotFoundException, SQLException
 		{
-			DatabaseOperation.ConnectionSetup();
+			DatabaseOperation.ConnectionSetup(Platform);
 			
 			this.put("output_in_same_table", this.RdmsValue("OutputInInputTable"));
 						
@@ -90,7 +92,7 @@ public class PropertiesHandle extends Properties
 		    this.put("StatusColumn", "StatusColumn");
 		    
 		    this.put("jdbc_driver", this.RdmsValue("JDCDriver"));
-		    this.put("db_url", this.RdmsValue("DB_URL") + "/" + this.RdmsValue("ProjectDBName") + "_" +  this.RdmsValue("UserDBName"));
+		    this.put("db_url", this.RdmsValue("DB_URL") + "/" + this.RdmsValue("ProjectDBName") + "_" + Platform + "_" + this.RdmsValue("UserDBName"));
 		    this.put("db_username", this.RdmsValue("DB_UserName"));
 		    this.put("db_password", this.RdmsValue("DB_Password"));
 		    
