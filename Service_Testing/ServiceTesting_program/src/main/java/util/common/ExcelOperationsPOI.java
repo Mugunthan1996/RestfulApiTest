@@ -100,8 +100,8 @@ public class ExcelOperationsPOI
 				break;
 			case Cell.CELL_TYPE_STRING	:		cellvalue= cell.getStringCellValue();					break;
 			case Cell.CELL_TYPE_ERROR	:		cellvalue= String.valueOf(cell.getErrorCellValue());	break;
-			case Cell.CELL_TYPE_BLANK	:		cellvalue="Blank";	
-			default						:	cellvalue="N/A"; 
+			case Cell.CELL_TYPE_BLANK	:		cellvalue="Blank";	break;
+			default						:	cellvalue="N/A"; break;
 		}
 		return cellvalue;
 	}

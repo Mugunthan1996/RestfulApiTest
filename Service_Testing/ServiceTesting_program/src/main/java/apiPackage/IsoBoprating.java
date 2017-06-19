@@ -28,27 +28,38 @@ public class IsoBoprating extends BaseClass implements API
 		InputColVerify = new DBColoumnVerify(config.getProperty("InputCondColumn"));
 		OutputColVerify = new DBColoumnVerify(config.getProperty("OutputCondColumn"));	
 		StatusColVerify = new DBColoumnVerify(config.getProperty("OutputCondColumn"));
+		if(config.getProperty("status").equals("Y"))
+		{
 		macro=new IsoMacro(config);	
+		}
 		
 	}
 	
 	public void LoadSampleRequest(DatabaseOperation InputData) throws SQLException, BiffException, IOException
 	{
-	
+		if(config.getProperty("status").equals("Y"))
+		{
 		macro.LoadSampleRatingmodel(config, InputData);
 		macro.GenerateExpected(InputData, config);
+		}
 		super.LoadSampleRequest(InputData);
 	}
 	
 	public void PumpDataToRequest() throws SQLException, IOException, DocumentException, ParseException,ClassNotFoundException, NumberFormatException, java.text.ParseException, BiffException 
 	{			
-		macro.PumpinData(input, config);		
+		if(config.getProperty("status").equals("Y"))
+		{
+		macro.PumpinData(input, config);
+		}
 		super.PumpDataToRequest();
 	}
 	
 	public DatabaseOperation SendResponseDataToFile(DatabaseOperation output) throws UnsupportedEncodingException, IOException, ParseException, DocumentException, SQLException, ClassNotFoundException, NumberFormatException, java.text.ParseException
 	{
+		if(config.getProperty("status").equals("Y"))
+		{
 		macro.PumpoutData(output, input, config);
+		}
 		super.SendResponseDataToFile(output);
 		return output;		
 	}
